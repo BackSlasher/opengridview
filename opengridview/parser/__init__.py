@@ -33,5 +33,12 @@ class Parser:
       else:
           return str(value)
 
+  def get_type(self,type_name):
+    global approved_types
+    for t in approved_types:
+      if t.__name__ == type_name:
+        return name
+    raise ValueError('No such type: %r' % type_name)
+
   def read_stream(self, stream, item_func, header_func):
     raise Exception('Should be implemented in subclasses') # TODO throw proper exception
