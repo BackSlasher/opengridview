@@ -109,8 +109,6 @@ class Window(Gtk.ApplicationWindow):
         self.txt_filter.set_text(self.input_config['filter'])
       self.done_headers = True
 
-    # Make sure the type is GTK safe. If not, return a strigified version
-
     # Add new item
     def add_item(self,item):
       # assuming item is array of values
