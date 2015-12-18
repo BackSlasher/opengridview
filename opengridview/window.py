@@ -108,8 +108,6 @@ class Window(Gtk.ApplicationWindow):
       if self.input_config.has_key('filter'):
         self.txt_filter.set_text(self.input_config['filter'])
       self.done_headers = True
-      if not self.get_visible():
-          self.show_all()
 
     # Make sure the type is GTK safe. If not, return a strigified version
 
@@ -119,6 +117,8 @@ class Window(Gtk.ApplicationWindow):
       z = zip(item,self.headers)
       if not any((cell[0] and cell[1] for cell in z)): return # Skip items that have no values in columns with names
       self.tree_source.append(item)
+      if not self.get_visible():
+          self.show_all()
 
     def filter(self,obj,iteration,b):
       filter_text = self.txt_filter.get_text()
