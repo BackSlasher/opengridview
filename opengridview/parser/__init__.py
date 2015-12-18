@@ -23,10 +23,12 @@ class Parser:
   def inflate_truncate(self,l,n,default=None):
     return l[:n] + [default]*(n-len(l))
 
+  approved_types = [int,str,float,bool,long,complex]
   def g_type(self,value):
+      global approved_types
       if not value:
           return value
-      elif type(value) in [int,str,float,bool,long,complex]:
+      elif type(value) in approved_types:
           return value
       else:
           return str(value)
