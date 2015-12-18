@@ -26,7 +26,7 @@ class Parser:
   def g_type(self,value):
       if not value:
           return value
-      elif type(value) in [int,str,float,bool]:
+      elif type(value) in [int,str,float,bool,long,complex]:
           return value
       else:
           return str(value)
