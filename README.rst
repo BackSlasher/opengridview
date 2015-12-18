@@ -11,6 +11,22 @@ Input is passed via STDIN or via filenames in argument. Every file is assigned a
 
 Also check out my post on it: http://blog.backslasher.net/open-gridview.html
 
+Basic usage
+-----------
+Either pipe input, or supply it as files.
+
+Default parser is autosplit (`re.split`) with `\\s+` as separator
+
+Change parser with `--parser`
+
+Change separator where applicable using `--separator`
+
+Column names are usually inferred from input. Use `--headers` to override.
+
+Columns can be discarded by specifying an empty name, like `--headers important,,also`
+
+Column types are usually inferred from first item in input. If overriding headers, follow a name with colons to force a specific type, like `--headers col,othercol:int,thirdcol`
+
 Parsing
 -------
 These different types of input formatting are currently supported:
