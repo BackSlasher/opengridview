@@ -19,15 +19,13 @@ class Parser:
   def __init__(self, config):
     self.approved_types = [int,str,float,bool,long,complex]
     self.config = config
-    self.parse_headers(config.get('headers'))
     self.headers = None
-    self.header_names = None
-    self.header_types = None
+    self.parse_headers(config.get('headers'))
 
   def parse_headers(self,headers):
     header_names = []
     header_types = []
-    if not headers: return
+    if not headers: headers=[]
     for header_item in headers:
       h_list = header_item.split(':')
       h_name = h_list[0]
