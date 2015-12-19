@@ -113,7 +113,7 @@ class Window(Gtk.ApplicationWindow):
     def add_item(self,item):
       # assuming item is array of values
       z = zip(item,self.headers)
-      if not any((cell[0] and cell[1] for cell in z)): return # Skip items that have no values in columns with names
+      if not any(((cell[0] != None) and cell[1] for cell in z)): return # Skip items that have no values in columns with names
       self.tree_source.append(item)
       if not self.get_visible():
           self.show_all()
