@@ -11,6 +11,10 @@ Input is passed via STDIN or via filenames in argument. Every file is assigned a
 
 Also check out my post on it: http://blog.backslasher.net/open-gridview.html
 
+Prerequisites
+-------------
+Since we rely on Gtk, we need the python GTK bindings (`PyGobject <https://wiki.gnome.org/action/show/Projects/PyGObject?action=show&redirect=PyGObject>`_). Compiling it as a Python package is annoying, so it's better to install the Distro-provided package (e.g. in Ubuntu - `python-gi`)
+
 Basic usage
 -----------
 Either pipe input, or supply it as files.
