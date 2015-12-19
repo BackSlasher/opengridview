@@ -1,0 +1,8 @@
+opengridview (0.0.2)
+
+  * Added suport for forcing type for column
+  * Improved support for bool columns
+
+opengridview (0.0.1)
+
+  * Initial release
