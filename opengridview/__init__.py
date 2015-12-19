@@ -24,7 +24,7 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description='View tabulated data via GUI')
     parser.add_argument('-p','--parser',type=str, default='autosplit',help='Type of parser to use') #TODO add possible parsers
-    parser.add_argument('--headers',type=str, help='Headers are this comma-delimited names instead of ones supplied in file')
+    parser.add_argument('--headers',type=str, help='Headers are this comma-delimited names instead of ones supplied in file. Use colons to specify types, like "colname:int"')
     parser.add_argument('--filter',type=str, help='Pre-populate filter box')
     parser.add_argument('-s', '--separator', help='How to seperate columns. Applies only to some parsers')
     parser.add_argument('files', nargs='*', help='Files to show. Each file opens a new window')
