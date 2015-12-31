@@ -1,3 +1,7 @@
+opengridview (0.0.3)
+
+  * Supporting copying table with headers
+
 opengridview (0.0.2)
 
   * Added suport for forcing type for column
