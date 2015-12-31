@@ -38,7 +38,8 @@ class Window(Gtk.ApplicationWindow):
         action_group = Gtk.ActionGroup('my_actions')
         action_group.add_actions([
                 ("EditMenu", None, "Edit"),
-                ("EditCopy",Gtk.STOCK_COPY,None,None,None,self.copy_clipboard)
+                ("EditCopy",None,'copy','<Ctrl>c',None,self.copy_clipboard_noheaders),
+                ("EditCopyHeaders",None,'Copy (with headers)','<Ctrl><Shift>c',None,self.copy_clipboard_headers)
             ])
         uimanager = Gtk.UIManager()
         uimanager.add_ui_from_string("""
@@ -46,6 +47,7 @@ class Window(Gtk.ApplicationWindow):
                <menubar name='MenuBar'>
                    <menu action='EditMenu'>
                        <menuitem action='EditCopy' />
+                       <menuitem action='EditCopyHeaders' />
                    </menu>
                </menubar>
            </ui>
@@ -69,14 +71,20 @@ class Window(Gtk.ApplicationWindow):
         geometry = screen.get_monitor_geometry(monitor)
         self.resize( geometry.width * 0.75 , geometry.height * 0.75 )
 
+    def copy_clipboard_noheaders(self,action):
+        self._copy_clipboard(False)
+    def copy_clipboard_headers(self,action):
+        self._copy_clipboard(True)
+
     # TODO Wanted to use more sophisticated data type but cant http://stackoverflow.com/q/25151437
-    def copy_clipboard(self,action):
+    def _copy_clipboard(self,include_headers):
       if not self.done_headers:
           return
       res = StringIO.StringIO()
       source,paths = self.tree_view.get_selection().get_selected_rows()
       writer = csv.writer(res)
-      #TODO add headers?
+      if include_headers:
+          writer.writerow(self.headers)
       for path in paths:
         iter = source.get_iter(path)
         cells = [ source.get_value(iter,i) for i in range(0,self.tree_source.get_n_columns()) ]
