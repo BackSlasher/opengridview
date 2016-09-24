@@ -5,6 +5,8 @@ Open-GridView
 An application insipired by PowerShell's `Out-GridView <https://technet.microsoft.com/en-us/library/hh849920.aspx>`_
 .
 
+.. image:: https://cloud.githubusercontent.com/assets/7194491/18807763/73f0c676-8258-11e6-9598-46c27488ffe9.png
+
 Implemented on Gnome using GTK
 
 Input is passed via STDIN or via filenames in argument. Every file is assigned a window and a thread in charge of reading that file and parsing it.
