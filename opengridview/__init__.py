@@ -1,3 +1,5 @@
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from opengridview.window import Window
 from gi.repository import GObject
@@ -38,7 +40,7 @@ def main():
     if args.separator:
         default_config['separator']=args.separator
     if args.headers:
-        default_config['headers']=map(lambda s: s.strip(),args.headers.split(','))
+        default_config['headers']=[s.strip() for s in args.headers.split(',')]
     inputs = [ (open(f,'r'),default_config) for f in args.files ]
     # Add stdin as input, if it's not a tty
     if not sys.stdin.isatty():
@@ -52,4 +54,4 @@ def main():
     if windows:
         Gtk.main()
     else:
-        print 'No input supplied so no windows are created'
+        print('No input supplied so no windows are created')

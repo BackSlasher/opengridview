@@ -17,7 +17,7 @@ class Parser:
         raise Exception('cant figure out format')
 
   def __init__(self, config):
-    self.approved_types = [int,str,float,bool,long,complex]
+    self.approved_types = [int,str,float,bool,int,complex]
     self.config = config
     self.headers = None
     self.parse_headers(config.get('headers'))
@@ -48,10 +48,10 @@ class Parser:
       # If we have pre-provided types, prefer it over the discovered values
       if self.header_types: val_types = self.merge_lists(self.header_types,val_types)
       # Set headers
-      self.headers = zip(self.header_names,val_types)
+      self.headers = list(zip(self.header_names,val_types))
       header_func(self.headers)
     # Convert row to acceptable types
-    row = [ self.cast(z[0],z[1]) for z in zip(row,zip(*self.headers)[1]) ]
+    row = [ self.cast(z[0],z[1]) for z in zip(row,list(zip(*self.headers))[1]) ]
     row = self.inflate_truncate(row,len(self.headers))
     # Add item
     item_func(row)
@@ -91,7 +91,7 @@ class Parser:
   def merge_lists(self,a,b):
     # Make B exactly long as A
     b = self.inflate_truncate(b,len(a))
-    zipper = zip(a,b)
+    zipper = list(zip(a,b))
     return [ x[0] if x[0] else x[1] for x in zipper ]
 
   def read_stream(self, stream, item_func, header_func):

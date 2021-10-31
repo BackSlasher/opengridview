@@ -11,11 +11,11 @@ class ParserCsv(Parser):
     while True:
       line = stream.readline()
       if line:
-        if self.config.has_key('separator'):
+        if 'separator' in self.config:
           reader = csv.reader([line],delimiter=self.config['separator'])
         else:
           reader = csv.reader([line])
-        row = reader.next()
+        row = next(reader)
         if not self.header_names:
           # This is the first row. Use it to set header names
           self.set_headers(row)

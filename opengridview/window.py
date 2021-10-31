@@ -3,7 +3,7 @@ from gi.repository import Gtk,Gio,Gdk
 from opengridview.parser import Parser
 from gi.repository import GObject
 import csv
-import StringIO
+import io
 
 class Window(Gtk.ApplicationWindow):
 
@@ -80,7 +80,7 @@ class Window(Gtk.ApplicationWindow):
     def _copy_clipboard(self,include_headers):
       if not self.done_headers:
           return
-      res = StringIO.StringIO()
+      res = io.StringIO()
       source,paths = self.tree_view.get_selection().get_selected_rows()
       writer = csv.writer(res)
       if include_headers:
@@ -93,7 +93,7 @@ class Window(Gtk.ApplicationWindow):
 
     # Set headers for the table
     def set_headers(self,headers):
-      header_titles,header_types = zip(*headers)
+      header_titles,header_types = list(zip(*headers))
       if self.done_headers: return
       self.headers = header_titles
       self.header_types = header_types
@@ -106,21 +106,21 @@ class Window(Gtk.ApplicationWindow):
         c.set_sort_column_id(idx)
         self.tree_view.append_column(c)
       # Create source
-      header_types = map(lambda x: str if x == unicode else x, header_types)
+      header_types = [str if x == str else x for x in header_types]
       self.tree_source = Gtk.ListStore(*header_types)
       tree_filter = self.tree_source.filter_new()
       tree_sort = Gtk.TreeModelSort(model=tree_filter)
       self.tree_view.set_model(tree_sort)
       self.txt_filter.connect("changed", lambda x: tree_filter.refilter())
       tree_filter.set_visible_func(self.filter)
-      if self.input_config.has_key('filter'):
+      if 'filter' in self.input_config:
         self.txt_filter.set_text(self.input_config['filter'])
       self.done_headers = True
 
     # Add new item
     def add_item(self,item):
       # assuming item is array of values
-      z = zip(item,self.headers)
+      z = list(zip(item,self.headers))
       if not any(((cell[0] != None) and cell[1] for cell in z)): return # Skip items that have no values in columns with names
       self.tree_source.append(item)
       if not self.get_visible():

@@ -5,7 +5,7 @@ class ParserAutoSplit(Parser):
 
   def __init__(self,config):
     Parser.__init__(self,config) # Base
-    if config.has_key('separator'):
+    if 'separator' in config:
       self.separator = config['separator']
     else:
       self.separator = '\s+'
