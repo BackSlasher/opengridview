@@ -10,7 +10,7 @@ class ParserLineJson(Parser):
       line = stream.readline()
       if line:
         item = json.loads(line)
-        self.set_headers(item.keys()) # Always safe
+        self.set_headers(list(item.keys())) # Always safe
         self.add_item([item.get(k) for k in self.header_names],header_func,item_func)
       else:
         break
